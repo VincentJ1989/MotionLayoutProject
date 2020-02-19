@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MotionLayoutProject</string>
+
+    <plurals name="option_text">
+        <item quantity="one">every day</item>
+        <item quantity="other">every %d day</item>
+    </plurals>
 </resources>
