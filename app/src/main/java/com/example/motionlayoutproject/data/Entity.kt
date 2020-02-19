@@ -4,10 +4,10 @@ import androidx.room.*
 
 // 嵌套类
 data class Address(
-    val street: String?,
-    val state: String?,
-    val city: String?,
-    @ColumnInfo(name = "post_code") val postCode: Int
+    var street: String?,
+    var state: String?,
+    var city: String?,
+    @ColumnInfo(name = "post_code") var postCode: Int
 )
 
 @Entity(
@@ -16,23 +16,24 @@ data class Address(
         entity = User::class,
         parentColumns = ["id"],
         childColumns = ["user_id"],
-        onDelete = ForeignKey.CASCADE
+        onDelete = ForeignKey.CASCADE,
+        onUpdate = ForeignKey.NO_ACTION
     )]
 )
 class Book(
-    @PrimaryKey val bookId: Int,
-    val title: String?,
-    @ColumnInfo(name = "user_id") val userId: Int
+    @PrimaryKey var bookId: Int,
+    var title: String?,
+    @ColumnInfo(name = "user_id") var userId: Int
 )
 
 
 @Entity(tableName = "user")
 data class User(
-    @PrimaryKey @ColumnInfo(name = "id") val uid: Int=0,
-    @ColumnInfo(name = "first_name") val firstName: String?="",
-    @ColumnInfo(name = "last_name") val lastName: String?="",
+    @PrimaryKey var id: Int = 0,
+    @ColumnInfo(name = "first_name") var firstName: String? = "",
+    @ColumnInfo(name = "last_name") var lastName: String? = "",
     @Ignore val age: Int = 0,
-    @Embedded val address: Address? = null
+    @Embedded var address: Address? = null
 ) {
     companion object {
         fun DEFAULT_USER() = User(-1, "F", "L")
@@ -43,8 +44,8 @@ data class User(
 @Entity
 data class Playlist(
     @PrimaryKey var id: Int,
-    val name: String?,
-    val description: String?
+    var name: String?,
+    var description: String?
 )
 
 @Entity
@@ -67,10 +68,15 @@ data class PlaylistSongJoin(val playlistId: Int, val songId: Int)
 // DatabaseView
 /*建议使用3引号，这样数据库字段异常一下就可以发现*/
 @DatabaseView(
-    "SELECT user.id, user.name, user.departmentId," +
-            "department.name AS departmentName FROM user " +
-            "INNER JOIN department ON user.departmentId = department.id"
+    """
+                SELECT * FROM user WHERE user.id = 1
+        """
+//        "SELECT user.id, user.name, user.departmentId,"
+//                + "department.name AS departmentName FROM user " +
+//                "INNER JOIN department ON user.departmentId = department.id"
 )
+
+@Entity
 data class UserDetail(
     val id: Long,
     val name: String?,
