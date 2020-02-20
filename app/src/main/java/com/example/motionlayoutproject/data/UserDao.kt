@@ -3,7 +3,7 @@ package com.example.motionlayoutproject.data
 import androidx.room.*
 
 @Dao
-interface UserDao {
+interface UserDao :BaseDao<User> {
     @Query("SELECT * FROM user")
     suspend fun getAll(): List<User>
 
@@ -16,15 +16,6 @@ interface UserDao {
     )
     suspend fun findByName(first: String, last: String): User
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(vararg users: User)
-
-    @Delete
-    suspend fun delete(user: User)
-
-    @Update
-    suspend fun update(vararg users: User)
-
     @Query("SELECT * FROM user WHERE id > :minAge")
     suspend fun loadAllUsersOlderThan(minAge: Int): Array<User>
 
@@ -36,6 +27,6 @@ interface UserDao {
     @Transaction
     suspend fun setLoggedInUser(loggedInUser: User) {
         delete(loggedInUser)
-        insertAll(loggedInUser)
+        insert(loggedInUser)
     }
 }

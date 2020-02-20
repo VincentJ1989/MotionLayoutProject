@@ -17,7 +17,7 @@ class UserRepository private constructor(private val userDao: UserDao) {
     }
 
     suspend fun insert3User() {
-        userDao.insertAll(
+        userDao.insert(
             User(1, "F1", "L1", 1),
             User(2, "F2", "L2", 2),
             User(3, "F3", "L3", 3)
