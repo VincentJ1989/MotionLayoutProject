@@ -24,6 +24,8 @@ interface UserDao :BaseDao<User> {
     suspend fun loadFullName(): List<NameTuple>
 
     // 事务
+    // 另一个用法是当一个QUERY返回的POJO带@Relation的对象或者是当前QUERY的返回结果实在太大了，
+    // 避免数据库在查询期间又做了修改而引起的脏数据
     @Transaction
     suspend fun setLoggedInUser(loggedInUser: User) {
         delete(loggedInUser)
