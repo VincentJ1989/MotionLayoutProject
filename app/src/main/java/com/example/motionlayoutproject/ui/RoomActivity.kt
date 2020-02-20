@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.motionlayoutproject.R
+import com.example.motionlayoutproject.data.DBManager
 import com.example.motionlayoutproject.viewmodel.RoomViewModel
 import kotlinx.android.synthetic.main.activity_room.*
 import kotlinx.coroutines.*
 
 class RoomActivity : AppCompatActivity() {
     private val viewModel by lazy {
-        //      RoomViewModel(DBManager.getUserRepository(this))
-        ViewModelProvider.NewInstanceFactory().create(RoomViewModel::class.java)
+        RoomViewModel(DBManager.getUserRepository(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
