@@ -31,9 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
                     super.onCreate(db)
                     // 创建的时候执行--异步执行!!!
                 }
-            })
-
-                .build()
+            }).build()
 
             return db
         }
