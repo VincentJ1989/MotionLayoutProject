@@ -44,4 +44,24 @@ class RoomActivity : AppCompatActivity() {
         }
     }
 
+    suspend fun multTask() {
+        // 内部协程一个fail就取消整个scope
+        coroutineScope {
+
+        }
+        // 内部协程失败了不影响其他的
+        supervisorScope {
+            launch {
+                delay(1000)
+                Log.d("TTTT","launch")
+            }
+            async {
+                delay(3000)
+                Log.d("TTTT","async")
+            }
+        }
+
+        Log.d("TTTT","main")
+    }
+
 }
