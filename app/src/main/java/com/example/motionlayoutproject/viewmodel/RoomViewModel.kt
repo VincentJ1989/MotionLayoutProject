@@ -1,37 +1,36 @@
 package com.example.motionlayoutproject.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.motionlayoutproject.data.UserRepository
-import kotlinx.coroutines.launch
+import com.example.motionlayoutproject.extension.async
 
 class RoomViewModel(val repo: UserRepository) : ViewModel() {
     fun insert3User() {
-        viewModelScope.launch {
+        async {
             repo.insert3User()
         }
     }
 
     fun getAll() {
-        viewModelScope.launch {
+        async {
             repo.getAll()
         }
     }
 
     fun queryOne() {
-        viewModelScope.launch {
+        async {
             repo.queryOn()
         }
     }
 
     fun update() {
-        viewModelScope.launch {
+        async {
             repo.update()
         }
     }
 
     fun delete() {
-        viewModelScope.launch {
+        async {
             repo.delete()
         }
     }
