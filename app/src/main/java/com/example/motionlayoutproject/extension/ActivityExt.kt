@@ -1,4 +1,4 @@
-package com.example.motionlayoutproject
+package com.example.motionlayoutproject.extension
 
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
