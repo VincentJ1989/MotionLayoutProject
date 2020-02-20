@@ -24,6 +24,25 @@ android {
         }
     }
 
+    // enable coroutines
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
+    }
+    // viewModels need this
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+    // support DataBinding
+    dataBinding {
+        enabled = true
+    }
+
+    // enable viewBinding to avoid findViewById cause NPE
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -42,6 +61,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    // coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
 
-
+    implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
 }
