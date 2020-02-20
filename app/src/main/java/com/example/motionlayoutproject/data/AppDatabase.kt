@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.motionlayoutproject.DATABASE_NAME
+import com.example.motionlayoutproject.utilities.DATABASE_NAME
 
 @Database(
     entities = [User::class],
@@ -24,11 +24,12 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase {
             val db = Room.databaseBuilder(
                 context,
-                AppDatabase::class.java, DATABASE_NAME
+                AppDatabase::class.java,
+                DATABASE_NAME
             ).addCallback(object : RoomDatabase.Callback() {
                 override fun onCreate(db: SupportSQLiteDatabase) {
-                    // 创建的时候执行
                     super.onCreate(db)
+                    // 创建的时候执行--异步执行!!!
                 }
             })
 
