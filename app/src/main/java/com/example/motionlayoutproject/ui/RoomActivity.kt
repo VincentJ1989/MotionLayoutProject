@@ -8,11 +8,23 @@ import com.example.motionlayoutproject.data.Address
 import com.example.motionlayoutproject.data.AppDatabase
 import com.example.motionlayoutproject.data.User
 import kotlinx.android.synthetic.main.activity_room.*
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.example.motionlayoutproject.data.DBManager
+import com.example.motionlayoutproject.viewmodel.RoomViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RoomActivity : AppCompatActivity() {
     private val TAG = this::class.java.simpleName
     private val userDao by lazy {
         AppDatabase.getInstance(this).userDao()
+    }
+
+    private val viewModel by lazy {
+        RoomViewModel(DBManager.getUserRepository(this))
+//        ViewModelProvider.NewInstanceFactory().create(RoomViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,47 +35,24 @@ class RoomActivity : AppCompatActivity() {
 
     private fun initView() {
         room_create_tv.setOnClickListener {
-            async {
-                userDao.insertAll(
-                    User(1, "F1", "L1", 1),
-                    User(2, "F2", "L2", 2),
-                    User(3, "F3", "L3", 3)
-                )
-                Log.d(TAG, "插入成功3条")
-            }
+            viewModel.insert3User()
         }
 
         room_query_all_tv.setOnClickListener {
-            async {
-                Log.d(TAG, userDao.getAll().toString())
-            }
+            viewModel.getAll()
         }
 
         room_query_tv.setOnClickListener {
-            async {
-                Log.d(TAG, "查找完毕")
-                Log.d(TAG, userDao.findByName("F2", "L2").toString())
-                Log.d(TAG, userDao.loadFullName().toString())
-            }
+            viewModel.queryOne()
         }
 
         room_update_tv.setOnClickListener {
-            async {
-                userDao.update(User(2, "F2", "L2", 20, Address("stree", "23", "xm", 86)))
-                Log.d(TAG, "更新完毕，可重新查询")
-            }
+            viewModel.update()
         }
 
         room_delete_tv.setOnClickListener {
-            async {
-                userDao.delete(User(1, "L1", "L2", 1))
-                Log.d(TAG, "删除完毕，可重新查询")
-            }
+            viewModel.delete()
         }
     }
 
-
-    fun async(block: () -> Unit) {
-        Thread { block.invoke() }.start()
-    }
 }
