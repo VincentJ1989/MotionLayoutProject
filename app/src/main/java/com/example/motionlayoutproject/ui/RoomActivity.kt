@@ -3,10 +3,12 @@ package com.example.motionlayoutproject.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.motionlayoutproject.R
 import com.example.motionlayoutproject.data.DBManager
+import com.example.motionlayoutproject.extension.toast
 import com.example.motionlayoutproject.viewmodel.RoomViewModel
 import kotlinx.android.synthetic.main.activity_room.*
 import kotlinx.coroutines.*
@@ -41,6 +43,16 @@ class RoomActivity : AppCompatActivity() {
 
         room_delete_tv.setOnClickListener {
             viewModel.delete()
+        }
+
+        // 使用LiveData来更新
+        viewModel.list.observe(this){
+            // toast("LiveData>>查到${it.size}人")
+        }
+
+        // 对于one-shot还是使用suspend比较好，而Flow主要适用于流式的，例如返回之后还需要进行一系列的处理
+        viewModel.listByFlow.observe(this){
+            toast("Flow>>查到${it.size}人")
         }
     }
 

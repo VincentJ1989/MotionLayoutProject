@@ -1,6 +1,8 @@
 package com.example.motionlayoutproject.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserDao :BaseDao<User> {
@@ -31,4 +33,14 @@ interface UserDao :BaseDao<User> {
         delete(loggedInUser)
         insert(loggedInUser)
     }
+
+    // LiveData---不用加suspend
+    @Query("SELECT * FROM user")
+    fun getAllByLiveData():LiveData<List<User>>
+
+    // Flow---和suspend走不一样的流程
+    // 具体可以看下面的链接：https://medium.com/androiddevelopers/lessons-learnt-using-coroutines-flow-4a6b285c0d06
+    @Query("SELECT * FROM user")
+    fun getAllByFlow(): Flow<List<User>>
+
 }
