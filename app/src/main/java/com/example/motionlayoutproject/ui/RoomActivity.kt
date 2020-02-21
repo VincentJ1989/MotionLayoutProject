@@ -47,7 +47,12 @@ class RoomActivity : AppCompatActivity() {
 
         // 使用LiveData来更新
         viewModel.list.observe(this){
-            toast("查到${it.size}人")
+            // toast("LiveData>>查到${it.size}人")
+        }
+
+        // 对于one-shot还是使用suspend比较好，而Flow主要适用于流式的，例如返回之后还需要进行一系列的处理
+        viewModel.listByFlow.observe(this){
+            toast("Flow>>查到${it.size}人")
         }
     }
 

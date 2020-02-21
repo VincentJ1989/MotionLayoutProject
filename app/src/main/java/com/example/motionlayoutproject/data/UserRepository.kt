@@ -45,7 +45,9 @@ class UserRepository private constructor(private val userDao: UserDao) {
         Log.d(TAG, "删除完毕，可重新查询")
     }
 
-
+    // 使用Flow可以通过链式调用做其他的处理
     val list = userDao.getAllByLiveData()
+
+    val listByFlow = userDao.getAllByFlow()
 
 }

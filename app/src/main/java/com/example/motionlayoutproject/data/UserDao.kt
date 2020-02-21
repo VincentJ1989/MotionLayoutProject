@@ -38,5 +38,9 @@ interface UserDao :BaseDao<User> {
     @Query("SELECT * FROM user")
     fun getAllByLiveData():LiveData<List<User>>
 
+    // Flow---和suspend走不一样的流程
+    // 具体可以看下面的链接：https://medium.com/androiddevelopers/lessons-learnt-using-coroutines-flow-4a6b285c0d06
+    @Query("SELECT * FROM user")
+    fun getAllByFlow(): Flow<List<User>>
 
 }
