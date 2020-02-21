@@ -31,7 +31,12 @@ abstract class AppDatabase : RoomDatabase() {
                     super.onCreate(db)
                     // 创建的时候执行--异步执行!!!
                 }
-            }).build()
+            })
+                .fallbackToDestructiveMigration()//missing migration paths ,will remove all data in mobile
+                //.fallbackToDestructiveMigrationFrom(3,4)// 表示仅当从版本3、4等迁移到下个版本时出现错误才会回清数据重建数据库
+                //.fallbackToDestructiveMigrationOnDowngrade()// 表示仅当降级不成功(Migration不可用)时，数据库才会清空重建
+                //.addMigrations(MIGRATION_2_3) // 有配置升级path--可以配置多个vargs
+                .build()
 
             return db
         }
