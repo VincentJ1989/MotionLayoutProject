@@ -44,4 +44,8 @@ class UserRepository private constructor(private val userDao: UserDao) {
         userDao.delete(User(1, "L1", "L2", 1))
         Log.d(TAG, "删除完毕，可重新查询")
     }
+
+
+    val list = userDao.getAllByLiveData()
+
 }

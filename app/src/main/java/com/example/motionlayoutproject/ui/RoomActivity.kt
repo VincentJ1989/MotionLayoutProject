@@ -3,10 +3,12 @@ package com.example.motionlayoutproject.ui
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.motionlayoutproject.R
 import com.example.motionlayoutproject.data.DBManager
+import com.example.motionlayoutproject.extension.toast
 import com.example.motionlayoutproject.viewmodel.RoomViewModel
 import kotlinx.android.synthetic.main.activity_room.*
 import kotlinx.coroutines.*
@@ -41,6 +43,11 @@ class RoomActivity : AppCompatActivity() {
 
         room_delete_tv.setOnClickListener {
             viewModel.delete()
+        }
+
+        // 使用LiveData来更新
+        viewModel.list.observe(this){
+            toast("查到${it.size}人")
         }
     }
 

@@ -34,4 +34,6 @@ class RoomViewModel(val repo: UserRepository) : ViewModel() {
             repo.delete()
         }
     }
+
+    var list = repo.list
 }
