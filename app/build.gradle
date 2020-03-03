@@ -71,4 +71,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
     // Paging
     implementation "androidx.paging:paging-runtime:$rootProject.paging_version"
+    // BRVAH
+    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.brvah_version"
+
 }
